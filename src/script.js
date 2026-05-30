@@ -8,18 +8,16 @@ function setupIndexPage() {
         window.electronAPI.navigate('menu.html');
     });
 }
-
 function setupMenuPage() {
     const durationBtn = document.querySelectorAll('.duration-btn');
     //Get all buttons with class "duration-btn"
 
     durationBtn.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', async function () {
             const durationStr = this.getAttribute('data-duration');
             const totalMinutes = parseInt(durationStr, 10);
-            window.selectedDuration = totalMinutes;
-            window.remainingSeconds = totalMinutes * 60;
-
+            await window.electronAPI.setSessionData('selectedDuration', totalMinutes);
+            await window.electronAPI.setSessionData('remainingSeconds', totalMinutes * 60);
 
             window.electronAPI.navigate('timer.html');
 
@@ -99,8 +97,9 @@ function setupRestPage() {
     const skipBtn = document.getElementById('skip-btn');
     const timer = document.getElementById('timer');
     const message = document.getElementById('message');
+    const timerMessage = document.getElementById('timerMessage');
 
-    let timeleft = 300; //5 mins
+    let timeleft = 10; //5 mins
     let timerInterval = null;
     let state = 'idle'; // can be 'idle', 'running', or 'finished'
 
@@ -123,6 +122,8 @@ function setupRestPage() {
             skipBtn.textContent = 'Next session';
             skipBtn.disabled = false;
             message.textContent = 'Break is over!';
+
+            finishRest();
         }
     }
 
@@ -150,6 +151,8 @@ function setupRestPage() {
         state = 'finished';
         skipBtn.textContent = 'Next session';
         message.textContent = 'Break is over!';
+        finishRest();
+
     }
 
     function finish() {
@@ -163,17 +166,65 @@ function setupRestPage() {
         } else if (state === 'running') {
             skip();
         } else if (state === 'finished') {
-            finishRest(); 
+            handleNextSession();
         }
     }
 
-    function finishRest() { //doesnt work?
-        if (window.remainingSeconds !== undefined) {
-            window.remainingSeconds = window.remainingSeconds - 1800;
+    async function finishRest() {
+        const remainingSeconds = await window.electronAPI.getSessionData('remainingSeconds');
+        let updatedSeconds = parseInt(remainingSeconds, 10);
+
+        if (!isNaN(updatedSeconds)) {
+            updatedSeconds = updatedSeconds - 1800;
+            if (updatedSeconds < 0) updatedSeconds = 0;
+            await window.electronAPI.setSessionData('remainingSeconds', updatedSeconds);
         }
-        if (window.remainingSeconds >= 1500) {
+
+        displayRemainingTime();
+
+    }
+
+    //Decrease timer
+    async function subtractSessionTime() {
+        const remainingSeconds = await window.electronAPI.getSessionData('remainingSeconds');
+        const parsedSeconds = parseInt(remainingSeconds, 10);
+
+        if (!isNaN(parsedSeconds)) {
+            let updatedSeconds = parsedSeconds - 1800;
+            if (updatedSeconds < 0) updatedSeconds = 0;
+            await window.electronAPI.setSessionData('remainingSeconds', updatedSeconds);
+        }
+    }
+
+    //To display the remaining time left
+    async function displayRemainingTime() {
+        const remainingSeconds = await window.electronAPI.getSessionData('remainingSeconds');
+        const parsedSeconds = parseInt(remainingSeconds, 10);
+
+        if (!isNaN(parsedSeconds)) {
+            const hours = Math.floor(parsedSeconds / 3600);
+            const minutes = Math.floor((parsedSeconds % 3600) / 60);
+            const seconds = parsedSeconds % 60;
+
+            let timeString = '';
+            if (hours > 0) {
+                timeString = `${hours}h ${minutes}m remaining`;
+            } else if (minutes > 0) {
+                timeString = `${minutes}m remaining`;
+            }
+
+            timerMessage.textContent = timeString;
+        }
+    }
+
+    async function handleNextSession() {
+        const remainingSeconds = await window.electronAPI.getSessionData('remainingSeconds');
+        const updatedSeconds = parseInt(remainingSeconds, 10);
+
+        if (updatedSeconds >= 1500) {
             window.electronAPI.navigate('timer.html');
         } else {
+            await window.electronAPI.clearSessionData();
             window.electronAPI.navigate('finish.html');
         }
     }
@@ -185,7 +236,7 @@ function setupRestPage() {
 
     updateDisplay();
     //not yet added
-    
+
 }
 
 function setupFinishPage() {
@@ -214,3 +265,15 @@ switch (currentPage) {
         setupFinishPage();
         break;
 }
+
+// Add close button to every page
+function addCloseButton() {
+    const closeBtn = document.createElement('button');
+    closeBtn.id = 'close-btn';
+    closeBtn.textContent = '×';
+    closeBtn.onclick = () => window.electronAPI.closeApp();
+    document.body.prepend(closeBtn);
+}
+
+// Call it on every page
+addCloseButton();

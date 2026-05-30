@@ -9,18 +9,19 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 650,
+    height: 700,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    frame:false
   });
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   //Store mainWindow globally so we can use it later
   global.mainWindow = mainWindow;
@@ -30,6 +31,22 @@ ipcMain.handle('navigate', async(event,page) => {
   //Get the main window we stored earlier
   const mainWindow = global.mainWindow;
   mainWindow.loadFile(path.join(__dirname,page));
+});
+
+let sessionData = {};
+
+ipcMain.handle('set-session-data', async (event, key, value) => {
+  sessionData[key] = value;
+  return true;
+});
+
+ipcMain.handle('get-session-data', async (event, key) => {
+  return sessionData[key];
+});
+
+ipcMain.handle('clear-session-data', async (event) => {
+  sessionData = {};
+  return true;
 });
 
 // This method will be called when Electron has finished
@@ -58,3 +75,9 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+ipcMain.handle('close-app', () => {
+  mainWindow.close();
+});
+
+

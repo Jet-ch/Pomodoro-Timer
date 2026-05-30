@@ -1,8 +1,88 @@
+h1 {
+	font-size: clamp(32px, 5vw, 48px);
+	font-weight: 500;
+	font-family: 'Pixelify Sans';
+	color: #000000;
+	text-align: center;
+	width: 100%;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+	background-color: #FFF9B0;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap:20px;
+	-webkit-app-region: drag; /* Makes the area draggable */
+}
+
+.container {
+	width: 90vw; /* 90% of viewport width */
+	max-width: 600px; /* Max width */
+
+	aspect-ratio: 600 / 522; /* Keeps proportions */
+	background-color: #965f37;
+	
+	display: flex; /*Make this similar to the body so that can be resized*/
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	padding: 20px;
+	overflow: hidden;
+}
+
+.image-icon {
+	width: 60%; /* Percentage of container */
+	height: auto;
+	object-fit: contain;
+}
+
+#start-btn {
+	width: 80%; /* Percentage of container */
+	padding: 15px 20px;
+	font-size: clamp(24px, 4vw, 48px); /* Scales with window */
+	font-weight: 500;
+	font-family: 'Pixelify Sans';
+	color: #fff;
+	background-color: rgba(139, 90, 43, 0.8);
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	-webkit-app-region: no-drag;
+}
+#start-btn:hover {
+	background-color: rgba(139, 90, 43, 1);
+}
+
+#close-btn {  /*The close button */
+    position: fixed; /* this can be fixed cause its always same spot*/
+	top: 10px;
+	right: 10px;
+	background-color: transparent;
+	border: none;
+	font-size: 30px;
+	color: white;
+	cursor: pointer;
+	z-index: 9999;
+	-webkit-app-region: no-drag;
+}
+
+#close-btn:hover {
+    color: red;
+}
+
+button {
+    -webkit-app-region: no-drag; /* Buttons stay clickable */
 }
