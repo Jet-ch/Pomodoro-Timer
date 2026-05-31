@@ -1,12 +1,3 @@
-h1 {
-	font-size: clamp(32px, 5vw, 48px);
-	font-weight: 500;
-	font-family: 'Pixelify Sans';
-	color: #000000;
-	text-align: center;
-	width: 100%;
-}
-
 * {
 	margin: 0;
 	padding: 0;
@@ -21,36 +12,46 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap:20px;
-	-webkit-app-region: drag; /* Makes the area draggable */
-}
-
-.container {
-	width: 90vw; /* 90% of viewport width */
-	max-width: 600px; /* Max width */
-
-	aspect-ratio: 600 / 522; /* Keeps proportions */
-	background-color: #965f37;
-	
-	display: flex; /*Make this similar to the body so that can be resized*/
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 20px;
-	padding: 20px;
+	gap: 0;
+	-webkit-app-region: drag;
 	overflow: hidden;
 }
 
+.container {
+	width: 80vmin;
+	aspect-ratio: 600 / 622;
+	background-color: #965f37;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 2vmin;
+	padding: 2vmin;
+	overflow: hidden;
+}
+
+h1 {
+	font-size: 36px;
+	font-weight: 500;
+	font-family: 'Pixelify Sans';
+	color: #000000;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 20px;
+	margin-right : 72px;
+}
+
 .image-icon {
-	width: 60%; /* Percentage of container */
+	width: 70%;
 	height: auto;
 	object-fit: contain;
+	flex-grow: 1;
 }
 
 #start-btn {
-	width: 80%; /* Percentage of container */
-	padding: 15px 20px;
-	font-size: clamp(24px, 4vw, 48px); /* Scales with window */
+	width: 80%;
+	padding: 1.5vmin 2vmin;
+	font-size: 25px;
 	font-weight: 500;
 	font-family: 'Pixelify Sans';
 	color: #fff;
@@ -61,18 +62,20 @@ body {
 	align-items: center;
 	justify-content: center;
 	-webkit-app-region: no-drag;
+	margin-bottom: 20px;
 }
+
 #start-btn:hover {
 	background-color: rgba(139, 90, 43, 1);
 }
 
-#close-btn {  /*The close button */
-    position: fixed; /* this can be fixed cause its always same spot*/
-	top: 10px;
-	right: 10px;
+#close-btn {
+	position: fixed;
+	top: 1vmin;
+	right: 1vmin;
 	background-color: transparent;
 	border: none;
-	font-size: 30px;
+	font-size: 3vmin;
 	color: white;
 	cursor: pointer;
 	z-index: 9999;
@@ -80,9 +83,9 @@ body {
 }
 
 #close-btn:hover {
-    color: red;
+	color: red;
 }
 
 button {
-    -webkit-app-region: no-drag; /* Buttons stay clickable */
+	-webkit-app-region: no-drag;
 }

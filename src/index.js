@@ -9,12 +9,13 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 650,
-    height: 700,
+    width: 450,
+    height: 500,
+    resizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
-    frame:false
+    frame:false,
   });
 
   // and load the index.html of the app.
@@ -26,6 +27,7 @@ const createWindow = () => {
   //Store mainWindow globally so we can use it later
   global.mainWindow = mainWindow;
 };
+
 
 ipcMain.handle('navigate', async(event,page) => {
   //Get the main window we stored earlier
