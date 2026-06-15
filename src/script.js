@@ -53,6 +53,7 @@ function setupTimerpage() {
             timerfinished = true;
             clearInterval(timerInterval);
             timerInterval = null;
+            playDing();
 
             startBtn.textContent = 'Next';
             message.textContent = 'Time for a break!';
@@ -64,6 +65,7 @@ function setupTimerpage() {
         if (timerInterval !== null) {
             return;
         }
+        playBeep();
         timerInterval = setInterval(tick, 1000);
         startBtn.disabled = true;
     }
@@ -118,6 +120,7 @@ function setupRestPage() {
         if (timeleft == 0 && state === 'running') {
             stopTimer();
             state = 'finished';
+            playDing();
 
             skipBtn.textContent = 'Next session';
             skipBtn.disabled = false;
@@ -131,6 +134,7 @@ function setupRestPage() {
         if (timerInterval !== null) {
             return;
         }
+        playBeep();
         timerInterval = setInterval(tick, 1000);
         state = 'running';
         skipBtn.textContent = 'Skip';
@@ -283,6 +287,42 @@ function addCloseButton() {
 
 // Call it on every page
 addCloseButton();
+
+function playDing() {
+    const ctx = new AudioContext();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.frequency.value = 880;  // pitch
+    oscillator.type = 'sine';
+
+    gainNode.gain.setValueAtTime(0.5, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);  // fade out
+
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 1.5);
+}
+
+function playBeep() {
+    const ctx = new AudioContext();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.frequency.value = 440;  // lower pitch than ding
+    oscillator.type = 'sine';
+
+    gainNode.gain.setValueAtTime(0.3, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);  // short beep
+
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 0.3);
+}
 
 
 
