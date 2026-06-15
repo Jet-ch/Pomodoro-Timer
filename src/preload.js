@@ -18,7 +18,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     clearSessionData: () => {
         return ipcRenderer.invoke('clear-session-data');
     },
-    closeApp: () => ipcRenderer.invoke('close-app')
+    closeApp: () => ipcRenderer.invoke('close-app'),
+    minimizeApp: () => ipcRenderer.invoke('minimize-app')  // add this
 });
 
 

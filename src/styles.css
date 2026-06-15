@@ -24,7 +24,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	gap: 2vmin;
 	padding: 2vmin;
 	overflow: hidden;
@@ -73,19 +73,186 @@ h1 {
 	position: fixed;
 	top: 1vmin;
 	right: 1vmin;
-	background-color: transparent;
+	background-color: #965f37;
+	border: none;
+	font-size: 5vmin;
+	color: white;
+	cursor: pointer;
+	z-index: 9999;
+	-webkit-app-region: no-drag;
+	width: 5vmin;
+	height: 5vmin;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+button {
+	-webkit-app-region: no-drag;
+}
+
+#HowLongQuestion{
+	font-size: 36px;
+	font-weight: 500;
+	font-family: 'Pixelify Sans';
+	color: #FFFFFF;
+	text-align: top;
+	width: 100%;
+	margin-bottom: 0;
+	
+	margin-right : 0px;
+}
+
+.duration-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vmin;
+  width: 90%;
+  margin-bottom: 2vmin;
+}
+
+.duration-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(139, 90, 43, 0.5);
+  border: none;
+  cursor: pointer;
+  padding: 1.5vmin;
+  gap: 1vmin;
+  font-size: 3vmin;
+  font-family: 'Pixelify Sans';
+  color: #fff;
+  font-weight: 500;
+}
+
+.duration-btn img {
+  width: 70%;
+  height: auto;
+  object-fit: contain;
+}
+
+.duration-btn:hover {
+  background-color: rgba(139, 90, 43, 1);
+}
+
+#message {
+  font-size: 9vmin;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  margin-right: 0;
+}
+
+#timer {
+  font-size: 9vmin;
+  font-family: 'Pixelify Sans';
+  color: #ffffff;
+  text-align: center;
+}
+
+.btn-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4vmin;
+  width: 90%;
+  margin-bottom: 1vmin;
+}
+
+.btn-row button {
+  flex: 1;
+  padding: 2vmin;
+  font-size: 7vmin;
+  font-family: 'Pixelify Sans';
+  font-weight: 500;
+  color: #fff;
+  background-color: rgba(139, 90, 43, 0.8);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-row button:hover {
+  background-color: rgba(139, 90, 43, 1);
+}
+
+.study-icon {
+	
+	width: 60%;
+	height: auto;
+	object-fit: contain;
+}
+
+.rest-icon {
+	flex-grow: 1;
+	min-height: 0;
+	width: 70%;
+	height: auto;
+	object-fit: contain;
+}
+
+#timerMessage {
+	font-size: 3vmin;
+	font-family: 'Pixelify Sans';
+	color: #ffffff;
+	text-align: center;
+}
+
+.finish-icon {
+	flex-grow: 1;
+	min-height: 0;
+	width: 70%;
+	height: auto;
+	object-fit: contain;
+}
+
+#goBack {
+	width: 80%;
+	padding: 2vmin;
+	font-size: 4vmin;
+	font-family: 'Pixelify Sans';
+	font-weight: 500;
+	color: #fff;
+	background-color: rgba(139, 90, 43, 0.8);
+	border: none;
+	cursor: pointer;
+	margin-bottom: 3vmin;
+}
+
+#goBack:hover {
+	background-color: rgba(139, 90, 43, 1);
+}
+
+#finishMessage {
+	font-size: 5vmin;
+	color: #ffffff;
+	text-align: center;
+	margin: 0;
+	margin-right: 0;
+}
+
+#minimize-btn {
+	position: fixed;
+	top: 1vmin;
+	right: 7vmin;
+	background-color: #965f37;
 	border: none;
 	font-size: 3vmin;
 	color: white;
 	cursor: pointer;
 	z-index: 9999;
 	-webkit-app-region: no-drag;
+	width: 5vmin;
+	height: 5vmin;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-#close-btn:hover {
-	color: red;
-}
-
-button {
-	-webkit-app-region: no-drag;
+#minimize-btn:hover {
+	background-color: rgba(139, 90, 43, 1);
+	color: yellow;
 }

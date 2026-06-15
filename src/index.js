@@ -82,4 +82,8 @@ ipcMain.handle('close-app', () => {
   mainWindow.close();
 });
 
+ipcMain.handle('minimize-app', () => {
+    global.mainWindow.minimize();
+});
+
 

@@ -29,7 +29,7 @@ function setupMenuPage() {
 
 function setupTimerpage() {
     const timerBtn = document.getElementById('skip-btn');
-    const startBtn = document.getElementById('start-btn');
+    const startBtn = document.getElementById('start-btns');
     const timer = document.getElementById('timer');
     const message = document.getElementById('message');
 
@@ -99,7 +99,7 @@ function setupRestPage() {
     const message = document.getElementById('message');
     const timerMessage = document.getElementById('timerMessage');
 
-    let timeleft = 10; //5 mins
+    let timeleft = 300; //5 mins
     let timerInterval = null;
     let state = 'idle'; // can be 'idle', 'running', or 'finished'
 
@@ -273,7 +273,16 @@ function addCloseButton() {
     closeBtn.textContent = '×';
     closeBtn.onclick = () => window.electronAPI.closeApp();
     document.body.prepend(closeBtn);
+
+    const minimizeBtn = document.createElement('button');
+    minimizeBtn.id = 'minimize-btn';
+    minimizeBtn.textContent = '−';
+    minimizeBtn.onclick = () => window.electronAPI.minimizeApp();
+    document.body.prepend(minimizeBtn);
 }
 
 // Call it on every page
 addCloseButton();
+
+
+

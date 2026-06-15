@@ -1,21 +1,27 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Timer page</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  
-  <body>
-    <h1>Pomodoro Timer</h1>
-    
-    <h1 id = 'message'>studying...</h1>
 
+<head>
+  <meta charset="UTF-8" />
+  <title>Timer page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Pomodoro Timer</h1>
+  <div class="container">
+    <h1 id='message'>studying...</h1>
+    <img class="study-icon" src="../assets/Screenshot_2026-06-15_173300-removebg-preview.png" />
     <div id="timer">25:00</div>
+    <div class="btn-row">
+      <button id='skip-btn'>skip</button>
+      <button id='start-btns'>start</button>
+    </div>
 
-    <button id ='skip-btn'>skip</button>
-    <button id ='start-btn'>start</button>
-    
+
     <script src="script.js"></script> <!--This is to let html know that take functions at script.js-->
-  </body>
+  </div>
+</body>
+
 </html>
